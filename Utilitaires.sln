@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilitaires", "Utilitaires.csproj", "{F5C9241A-7544-46A9-BBC3-94CF1450234D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUtilitaire", "TestUtilitaire\TestUtilitaire\TestUtilitaire.csproj", "{F8A02220-BEC2-449C-B4C7-1738E56C74F9}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "TestUtilitaireContent", "TestUtilitaire\TestUtilitaireContent\TestUtilitaireContent.contentproj", "{42A06D32-6FFA-4190-9C37-D5B570E11472}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -13,6 +17,12 @@ Global
 		{F5C9241A-7544-46A9-BBC3-94CF1450234D}.Debug|x86.Build.0 = Debug|x86
 		{F5C9241A-7544-46A9-BBC3-94CF1450234D}.Release|x86.ActiveCfg = Release|x86
 		{F5C9241A-7544-46A9-BBC3-94CF1450234D}.Release|x86.Build.0 = Release|x86
+		{F8A02220-BEC2-449C-B4C7-1738E56C74F9}.Debug|x86.ActiveCfg = Debug|x86
+		{F8A02220-BEC2-449C-B4C7-1738E56C74F9}.Debug|x86.Build.0 = Debug|x86
+		{F8A02220-BEC2-449C-B4C7-1738E56C74F9}.Release|x86.ActiveCfg = Release|x86
+		{F8A02220-BEC2-449C-B4C7-1738E56C74F9}.Release|x86.Build.0 = Release|x86
+		{42A06D32-6FFA-4190-9C37-D5B570E11472}.Debug|x86.ActiveCfg = Debug|x86
+		{42A06D32-6FFA-4190-9C37-D5B570E11472}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
