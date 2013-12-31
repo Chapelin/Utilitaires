@@ -106,15 +106,16 @@ namespace GestionObjetClick
         #endregion
 
         #region constructeur
+
         /// <summary>
         /// Constructeur d'objet
         /// </summary>
         /// <param name="text">Nom de l'objet</param>
         /// <param name="pos">Position de son sprite</param>
         /// <param name="z">Position Z, plus Z est faible, plus il sera devant</param>
-        /// <param name="c">Colorkey</param>
         /// <param name="gd">GRaphiqueDevice</param>
-        public Objet(Texture2D text, Vector2 pos, float z, Color c, GraphicsDevice gd)
+        /// <param name="c">Colorkey</param>
+        public Objet(Texture2D text, Vector2 pos, float z, GraphicsDevice gd, Color c=default(Color))
         {
             this.gd = gd;
             Sprite = text;
