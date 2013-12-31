@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GestionObjetClick;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -18,11 +19,13 @@ namespace TestUtilitaire
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private ObjetManager manager;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            this.IsMouseVisible = true;
         }
 
         /// <summary>
@@ -34,7 +37,7 @@ namespace TestUtilitaire
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            manager = new ObjetManager(this, new Texture2D(this.GraphicsDevice,this.graphics.PreferredBackBufferWidth,this.graphics.PreferredBackBufferHeight));
             base.Initialize();
         }
 
@@ -46,7 +49,10 @@ namespace TestUtilitaire
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            Texture2D t1 = Content.Load<Texture2D>("feu");
+            var t2 = Content.Load<Texture2D>("petitninja");
+            manager.Add("feu",new Objet(t1,new Vector2(10,10),0.5f,this.GraphicsDevice ));
+            manager.Add("petitninja", new Objet(t2, new Vector2(15, 10), 0.5f, this.GraphicsDevice));
             // TODO: use this.Content to load your game content here
         }
 
@@ -70,6 +76,13 @@ namespace TestUtilitaire
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
+            var state = Mouse.GetState();
+
+            if (state.LeftButton == ButtonState.Pressed)
+            {
+                var nom = manager.DevinerObjet(state);
+                Console.WriteLine("Clické sur : "+nom);
+            }
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -82,8 +95,10 @@ namespace TestUtilitaire
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            manager.DrawHiddenObjets();
+            manager.DrawObjets(spriteBatch);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
