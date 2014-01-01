@@ -19,7 +19,7 @@ namespace TestUtilitaire
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        private ObjetManager manager;
+        private MouseAwardManager manager;
 
         public Game1()
         {
@@ -37,7 +37,7 @@ namespace TestUtilitaire
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            manager = new ObjetManager(this);
+            manager = new MouseAwardManager(this);
             base.Initialize();
         }
 
@@ -51,8 +51,8 @@ namespace TestUtilitaire
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Texture2D t1 = Content.Load<Texture2D>("feu");
             var t2 = Content.Load<Texture2D>("petitninja");
-            manager.Add(new Objet(t1,new Vector2(10,10),0.5f,this.GraphicsDevice,"feu" ));
-            manager.Add( new Objet(t2, new Vector2(15, 10), 0.5f, this.GraphicsDevice, "petitninja"));
+            manager.Add(new MouseAwareObject(this,t1,new Vector2(10,10),0.5f,this.GraphicsDevice,"feu" ));
+            manager.Add( new MouseAwareObject(this,t2, new Vector2(15, 10), 0.5f, this.GraphicsDevice, "petitninja"));
             // TODO: use this.Content to load your game content here
         }
 

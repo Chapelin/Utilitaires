@@ -10,7 +10,7 @@ namespace GestionObjetClick
     /// <summary>
     /// Classe d'objet survolable a la souris.
     /// </summary>
-    public class Objet
+    public class MouseAwareObject : DrawableGameComponent
     {
 
 
@@ -96,7 +96,7 @@ namespace GestionObjetClick
         /// <param name="z">Position Z, plus Z est faible, plus il sera devant</param>
         /// <param name="gd">GRaphiqueDevice</param>
         /// <param name="c">Colorkey</param>
-        public Objet(Texture2D text, Vector2 pos, float z, GraphicsDevice gd, string id = "NoID", Color c = default(Color))
+        public MouseAwareObject(Game g,Texture2D text, Vector2 pos, float z, GraphicsDevice gd, string id = "NoID", Color c = default(Color)) : base(g)
         {
             this.gd = gd;
             Sprite = text;
@@ -107,10 +107,7 @@ namespace GestionObjetClick
 
         }
 
-        protected Objet()
-        {
-            
-        }
+     
 
         #endregion
 
@@ -140,6 +137,17 @@ namespace GestionObjetClick
             return temp;
 
         }
+
+        public override void Draw(GameTime gameTime)
+        {
+            var sp = new SpriteBatch(Game.GraphicsDevice);
+            sp.Begin();
+            sp.Draw(this.Sprite, new Rectangle((int)this.Position.X, (int)this.Position.Y, this.Sprite.Width, this.Sprite.Height), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, this.Z);
+            sp.End();
+           
+            base.Draw(gameTime);
+        }
+
         #endregion
     }
 }

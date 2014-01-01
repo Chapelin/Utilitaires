@@ -12,14 +12,14 @@ namespace GestionObjetClick
     /// <summary>
     /// Classe de gestion des objets
     /// </summary>
-    public class ObjetManager : DrawableGameComponent
+    public class MouseAwardManager : DrawableGameComponent
     {
 
         #region Variables de classe
         /// <summary>
         /// Dictionnaire des objets sous la forme nom,objet
         /// </summary>
-        Dictionary<Color,Objet> dic;
+        Dictionary<Color,MouseAwareObject> dic;
 
 
         /// <summary>
@@ -49,9 +49,9 @@ namespace GestionObjetClick
         /// Constructeur d'OBjetManager
         /// </summary>
         /// <param name="g">Game</param>
-        public ObjetManager(Game g) : base(g)
+        public MouseAwardManager(Game g) : base(g)
         {
-            dic = new Dictionary<Color, Objet>();
+            dic = new Dictionary<Color, MouseAwareObject>();
             this.game = g;
             renderTarget = new RenderTarget2D(
                 game.GraphicsDevice,
@@ -74,13 +74,14 @@ namespace GestionObjetClick
         /// <summary>
         /// Ajout d'un objet au manager
         /// </summary>
-        /// <param name="ob">Objet a ajouter</param>
-        public void Add( Objet ob)
+        /// <param name="ob">MouseAwareObject a ajouter</param>
+        public void Add( MouseAwareObject ob)
         {
 
             Color t = new Color((byte)(actualcolor >> 16), (byte)(actualcolor >> 8), (byte)(actualcolor));
             ob.Couleur = t;
             dic.Add(ob.Couleur, ob);
+            ob.Game.Components.Add(ob);
             actualcolor= actualcolor+1;
         }
 
@@ -89,9 +90,9 @@ namespace GestionObjetClick
         /// </summary>
         /// <param name="s">Nom de l'objet</param>
         /// <returns>L'objet identifié, ou null s'il n'existe pas</returns>
-        public Objet GetObjet(String s)
+        public MouseAwareObject GetObjet(String s)
         {
-            Objet temp = null;
+            MouseAwareObject temp = null;
             try
             {
                 temp = dic.First(x=> x.Value.Id == s).Value;
@@ -126,7 +127,9 @@ namespace GestionObjetClick
         {
             try
             {
-                dic.Remove(GetObjet(s).Couleur);
+                var ob = GetObjet(s);
+                dic.Remove(ob.Couleur);
+                ob.Game.Components.Remove(ob);
             }
             catch { }
             
@@ -137,7 +140,7 @@ namespace GestionObjetClick
         /// </summary>
         public void Clear()
         {
-            dic = new Dictionary<Color, Objet>();
+            dic = new Dictionary<Color, MouseAwareObject>();
         }
 
 
@@ -145,9 +148,9 @@ namespace GestionObjetClick
         /// Retourne la liste des objets
         /// </summary>
         /// <returns>Liste des objets triés par leur Z dans l'ordre croissant</returns>
-        public List<Objet> ToList()
+        public List<MouseAwareObject> ToList()
         {
-            List<Objet> ltemp = new List<Objet>();
+            List<MouseAwareObject> ltemp = new List<MouseAwareObject>();
             try
             {
                 dic.OrderBy(temp => temp.Value.Z);
@@ -168,7 +171,7 @@ namespace GestionObjetClick
         public void DrawHiddenObjets()
         {
             // Set the render target
-            List<Objet> l = this.ToList();
+            List<MouseAwareObject> l = this.ToList();
             game.GraphicsDevice.SetRenderTarget(renderTarget);
             SpriteBatch te = new SpriteBatch(game.GraphicsDevice);
             te.Begin();
@@ -181,20 +184,7 @@ namespace GestionObjetClick
             //cachee = renderTarget.GetTexture<Texture2D>(cachee);
         }
 
-        /// <summary>
-        /// Dessine via le spritebatch fourni les sprites classique des objets
-        /// </summary>
-        /// <param name="sp">Spritebatch initialisé</param>
-        public void DrawObjets(SpriteBatch sp)
-        {
-            
-            List<Objet> l = this.ToList();
-            for (int i = 0; i < l.Count; i++)
-            {
-                //sp.Draw(l[i].Sprite, l[i].Position, Color.White);
-                sp.Draw(l[i].Sprite, new Rectangle((int)l[i].Position.X, (int)l[i].Position.Y, l[i].Sprite.Width, l[i].Sprite.Height), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, l[i].Z);
-            }
-        }
+     
 
 
         public override void Draw(GameTime gameTime)
@@ -202,7 +192,6 @@ namespace GestionObjetClick
             base.Draw(gameTime);
             var sp = new SpriteBatch(game.GraphicsDevice);
             sp.Begin();
-            DrawObjets(sp);
             DrawHiddenObjets();
             sp.End();
         }
