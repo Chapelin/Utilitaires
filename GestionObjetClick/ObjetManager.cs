@@ -19,12 +19,8 @@ namespace GestionObjetClick
         /// <summary>
         /// Dictionnaire des objets sous la forme nom,objet
         /// </summary>
-        Dictionary<String,Objet> dic;
+        Dictionary<Color,Objet> dic;
 
-        /// <summary>
-        /// Dictionnaire par couleurs des noms d'objet, sous la forme Couleur.ToString(), nom de l'objet
-        /// </summary>
-        Dictionary<String,String> dicolor;
 
         /// <summary>
         /// Game en cours
@@ -55,8 +51,7 @@ namespace GestionObjetClick
         /// <param name="g">Game</param>
         public ObjetManager(Game g) : base(g)
         {
-            dic = new Dictionary<string,Objet>();
-            dicolor = new Dictionary<String,String>();
+            dic = new Dictionary<Color, Objet>();
             this.game = g;
             renderTarget = new RenderTarget2D(
                 game.GraphicsDevice,
@@ -79,16 +74,13 @@ namespace GestionObjetClick
         /// <summary>
         /// Ajout d'un objet au manager
         /// </summary>
-        /// <param name="nom">Nom de l'objet</param>
         /// <param name="ob">Objet a ajouter</param>
-        /// <param name="n">Si true : couleur aléatoire</param>
-        public void Add(String nom, Objet ob)
+        public void Add( Objet ob)
         {
 
             Color t = new Color((byte)(actualcolor >> 16), (byte)(actualcolor >> 8), (byte)(actualcolor));
             ob.Couleur = t;
-            dic.Add(nom, ob);
-            dicolor.Add(ob.Couleur.ToString(), nom);
+            dic.Add(ob.Couleur, ob);
             actualcolor= actualcolor+1;
         }
 
@@ -97,12 +89,12 @@ namespace GestionObjetClick
         /// </summary>
         /// <param name="s">Nom de l'objet</param>
         /// <returns>L'objet identifié, ou null s'il n'existe pas</returns>
-        public Objet Get(String s)
+        public Objet GetObjet(String s)
         {
             Objet temp = null;
             try
             {
-                temp = dic[s];
+                temp = dic.First(x=> x.Value.Id == s).Value;
             }
             catch { }
             
@@ -114,12 +106,12 @@ namespace GestionObjetClick
         /// </summary>
         /// <param name="c">couleur de l'objet</param>
         /// <returns>le nom de l'objet, ou null</returns>
-        public String Get(Color c)
+        public String GetName(Color c)
         {
             String temp = null;
             try
             {
-                temp = dicolor[c.ToString()];
+                temp = dic[c].Id;
             }
             catch { };
 
@@ -134,9 +126,7 @@ namespace GestionObjetClick
         {
             try
             {
-                String c = dic[s].Couleur.ToString();
-                dic.Remove(s);
-                dicolor.Remove(c);
+                dic.Remove(GetObjet(s).Couleur);
             }
             catch { }
             
@@ -147,8 +137,7 @@ namespace GestionObjetClick
         /// </summary>
         public void Clear()
         {
-            dic = new Dictionary<string, Objet>();
-            dicolor = new Dictionary<string, string>();
+            dic = new Dictionary<Color, Objet>();
         }
 
 
@@ -234,9 +223,9 @@ namespace GestionObjetClick
             if (state.X > 0 && state.Y > 0 && state.X < game.GraphicsDevice.PresentationParameters.BackBufferWidth && state.Y < game.GraphicsDevice.PresentationParameters.BackBufferHeight)
             {
                 cachee.GetData<Color>(0, new Rectangle(state.X, state.Y, 1, 1), dessous, 0, 1);
-                if (Get(dessous[0]) != null)
+                if (GetName(dessous[0]) != null)
                 {
-                    retour = this.Get(dessous[0]);
+                    retour = this.GetName(dessous[0]);
                 }
                 else
                 {

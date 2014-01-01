@@ -23,26 +23,12 @@ namespace GestionObjetClick
         #endregion
 
         #region Variables de classe
-        /// <summary>
-        /// Sprite affichée a l'ecran
-        /// </summary>
-        private Texture2D sprite;
-
-        /// <summary>
-        /// Sprite colorée cachées, calculée a partir de celle affichée
-        /// </summary>
-        private Texture2D sprite_coloree;
 
         /// <summary>
         /// Position Z. Plus z est petot, plus le sprite sera devant pour la reconnaissance.
         /// Compris entre 0 et 1
         /// </summary>
         private float z;
-
-        /// <summary>
-        /// Position du sprite
-        /// </summary>
-        private Vector2 position;
 
         /// <summary>
         /// Couleur de sprite_coloree
@@ -62,23 +48,16 @@ namespace GestionObjetClick
         #endregion
 
         #region accesseurs
-        public Texture2D Sprite
-        {
-            get { return sprite; }
-            set { sprite = value; }
-        }
 
-        public Vector2 Position
-        {
-            get { return position; }
-            set { position = value; }
-        }
-       
+        public Texture2D Sprite { get; set; }
+
+        public Vector2 Position { get; set; }
+
         public Color Couleur
         {
             get { return couleur; }
             set { 
-                this.sprite_coloree = Colorer(this.sprite,value,ALPHAMIN,this.gd);
+                this.Sprite_coloree = Colorer(this.Sprite,value,ALPHAMIN,this.gd);
                 couleur= value; }
         }
 
@@ -98,11 +77,13 @@ namespace GestionObjetClick
         }
 
 
-        public Texture2D Sprite_coloree
-        {
-            get { return sprite_coloree; }
-            set { sprite_coloree = value; }
-        }
+        public Texture2D Sprite_coloree { get; set; }
+
+        /// <summary>
+        /// Id de l'objet : un guid, un nom, etc
+        /// </summary>
+        public string Id { get; set; }
+
         #endregion
 
         #region constructeur
@@ -115,14 +96,15 @@ namespace GestionObjetClick
         /// <param name="z">Position Z, plus Z est faible, plus il sera devant</param>
         /// <param name="gd">GRaphiqueDevice</param>
         /// <param name="c">Colorkey</param>
-        public Objet(Texture2D text, Vector2 pos, float z, GraphicsDevice gd, Color c=default(Color))
+        public Objet(Texture2D text, Vector2 pos, float z, GraphicsDevice gd, string id = "NoID", Color c = default(Color))
         {
             this.gd = gd;
             Sprite = text;
             Position = pos;
             Z = z;
             Couleur = c;
-            
+            this.Id = id;
+
         }
 
         protected Objet()
