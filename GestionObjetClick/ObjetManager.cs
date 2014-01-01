@@ -53,8 +53,7 @@ namespace GestionObjetClick
         /// Constructeur d'OBjetManager
         /// </summary>
         /// <param name="g">Game</param>
-        /// <param name="cach">TExture 2D de la taille de l'écran</param>
-        public ObjetManager(Game g, Texture2D cach) : base(g)
+        public ObjetManager(Game g) : base(g)
         {
             dic = new Dictionary<string,Objet>();
             dicolor = new Dictionary<String,String>();
@@ -64,7 +63,7 @@ namespace GestionObjetClick
                 game.GraphicsDevice.PresentationParameters.BackBufferWidth,
                 game.GraphicsDevice.PresentationParameters.BackBufferHeight
                 );
-            cachee = cach;
+            cachee = null;
 
             actualcolor = 0x000001;
             g.Components.Add(this);

@@ -37,7 +37,7 @@ namespace TestUtilitaire
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            manager = new ObjetManager(this, new Texture2D(this.GraphicsDevice,this.graphics.PreferredBackBufferWidth,this.graphics.PreferredBackBufferHeight));
+            manager = new ObjetManager(this);
             base.Initialize();
         }
 
