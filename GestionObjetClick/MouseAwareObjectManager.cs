@@ -12,7 +12,7 @@ namespace GestionObjetClick
     /// <summary>
     /// Classe de gestion des objets
     /// </summary>
-    public class MouseAwardManager : DrawableGameComponent
+    public class MouseAwareObjectManager : DrawableGameComponent
     {
 
         #region Variables de classe
@@ -49,7 +49,7 @@ namespace GestionObjetClick
         /// Constructeur d'OBjetManager
         /// </summary>
         /// <param name="g">Game</param>
-        public MouseAwardManager(Game g) : base(g)
+        public MouseAwareObjectManager(Game g) : base(g)
         {
             dic = new Dictionary<Color, MouseAwareObject>();
             this.game = g;
@@ -205,7 +205,7 @@ namespace GestionObjetClick
         /// </summary>
         /// <param name="state">MouseState</param>
         /// <returns>Nom de l'objet, ou Empty</returns>
-        public String DevinerObjet(MouseState state)
+        public String DevinerNomObjet(MouseState state)
         {
             Color[] dessous = new Color[1];
             string retour = String.Empty;
@@ -225,6 +225,28 @@ namespace GestionObjetClick
                 retour = String.Empty;
             
             return retour;
+        }
+
+        public MouseAwareObject DevinerObject(MouseState state)
+        {
+            Color[] dessous = new Color[1];
+            string retour = String.Empty;
+            if (state.X > 0 && state.Y > 0 && state.X < game.GraphicsDevice.PresentationParameters.BackBufferWidth && state.Y < game.GraphicsDevice.PresentationParameters.BackBufferHeight)
+            {
+                cachee.GetData<Color>(0, new Rectangle(state.X, state.Y, 1, 1), dessous, 0, 1);
+                if (GetName(dessous[0]) != null)
+                {
+                    retour = this.GetName(dessous[0]);
+                }
+                else
+                {
+                    retour = String.Empty;
+                }
+            }
+            else
+                retour = String.Empty;
+
+            return GetObjet(retour);
         }
 
         /// <summary>

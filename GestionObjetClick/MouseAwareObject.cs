@@ -49,7 +49,7 @@ namespace GestionObjetClick
 
         #region accesseurs
 
-        public Texture2D Sprite { get; set; }
+        public Texture2D SpriteToDraw { get; set; }
 
         public Vector2 Position { get; set; }
 
@@ -57,7 +57,7 @@ namespace GestionObjetClick
         {
             get { return couleur; }
             set { 
-                this.Sprite_coloree = Colorer(this.Sprite,value,ALPHAMIN,this.gd);
+                this.Sprite_coloree = Colorer(this.SpriteToDraw,value,ALPHAMIN,this.gd);
                 couleur= value; }
         }
 
@@ -99,7 +99,7 @@ namespace GestionObjetClick
         public MouseAwareObject(Game g,Texture2D text, Vector2 pos, float z, GraphicsDevice gd, string id = "NoID", Color c = default(Color)) : base(g)
         {
             this.gd = gd;
-            Sprite = text;
+            SpriteToDraw = text;
             Position = pos;
             Z = z;
             Couleur = c;
@@ -142,7 +142,7 @@ namespace GestionObjetClick
         {
             var sp = new SpriteBatch(Game.GraphicsDevice);
             sp.Begin();
-            sp.Draw(this.Sprite, new Rectangle((int)this.Position.X, (int)this.Position.Y, this.Sprite.Width, this.Sprite.Height), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, this.Z);
+            sp.Draw(this.SpriteToDraw, new Rectangle((int)this.Position.X, (int)this.Position.Y, this.SpriteToDraw.Width, this.SpriteToDraw.Height), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, this.Z);
             sp.End();
            
             base.Draw(gameTime);

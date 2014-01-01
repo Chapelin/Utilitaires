@@ -19,7 +19,7 @@ namespace TestUtilitaire
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        private MouseAwardManager manager;
+        private MouseAwareObjectManager manager;
 
         public Game1()
         {
@@ -37,7 +37,7 @@ namespace TestUtilitaire
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            manager = new MouseAwardManager(this);
+            manager = new MouseAwareObjectManager(this);
             base.Initialize();
         }
 
@@ -80,7 +80,7 @@ namespace TestUtilitaire
 
             if (state.LeftButton == ButtonState.Pressed)
             {
-                var nom = manager.DevinerObjet(state);
+                var nom = manager.DevinerNomObjet(state);
                 Console.WriteLine("Clické sur : "+nom);
             }
             // TODO: Add your update logic here
