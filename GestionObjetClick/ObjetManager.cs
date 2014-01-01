@@ -12,7 +12,7 @@ namespace GestionObjetClick
     /// <summary>
     /// Classe de gestion des objets
     /// </summary>
-    public class ObjetManager
+    public class ObjetManager : DrawableGameComponent
     {
 
         #region Variables de classe
@@ -54,7 +54,7 @@ namespace GestionObjetClick
         /// </summary>
         /// <param name="g">Game</param>
         /// <param name="cach">TExture 2D de la taille de l'écran</param>
-        public ObjetManager(Game g, Texture2D cach)
+        public ObjetManager(Game g, Texture2D cach) : base(g)
         {
             dic = new Dictionary<string,Objet>();
             dicolor = new Dictionary<String,String>();
@@ -67,6 +67,7 @@ namespace GestionObjetClick
             cachee = cach;
 
             actualcolor = 0x000001;
+            g.Components.Add(this);
 
         }
 
@@ -207,6 +208,16 @@ namespace GestionObjetClick
             }
         }
 
+
+        public override void Draw(GameTime gameTime)
+        {
+            base.Draw(gameTime);
+            var sp = new SpriteBatch(game.GraphicsDevice);
+            sp.Begin();
+            DrawObjets(sp);
+            DrawHiddenObjets();
+            sp.End();
+        }
         #endregion
 
 

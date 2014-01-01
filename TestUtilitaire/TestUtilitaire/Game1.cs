@@ -95,10 +95,6 @@ namespace TestUtilitaire
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin();
-            manager.DrawHiddenObjets();
-            manager.DrawObjets(spriteBatch);
-            spriteBatch.End();
 
             base.Draw(gameTime);
         }
