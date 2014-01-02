@@ -53,11 +53,7 @@ namespace GestionObjetClick
         {
             dic = new Dictionary<Color, MouseAwareObject>();
             this.game = g;
-            renderTarget = new RenderTarget2D(
-                game.GraphicsDevice,
-                game.GraphicsDevice.PresentationParameters.BackBufferWidth,
-                game.GraphicsDevice.PresentationParameters.BackBufferHeight
-                );
+           
             cachee = null;
 
             actualcolor = 0x000001;
@@ -172,6 +168,12 @@ namespace GestionObjetClick
         {
             // Set the render target
             List<MouseAwareObject> l = this.ToList();
+            var renderTarget = new RenderTarget2D(
+                game.GraphicsDevice,
+                game.GraphicsDevice.PresentationParameters.BackBufferWidth,
+                game.GraphicsDevice.PresentationParameters.BackBufferHeight,
+                false, SurfaceFormat.Color, DepthFormat.Depth24, 2, RenderTargetUsage.PreserveContents
+                );
             game.GraphicsDevice.SetRenderTarget(renderTarget);
             SpriteBatch te = new SpriteBatch(game.GraphicsDevice);
             te.Begin();
@@ -183,9 +185,6 @@ namespace GestionObjetClick
             cachee = renderTarget;
             //cachee = renderTarget.GetTexture<Texture2D>(cachee);
         }
-
-     
-
 
         public override void Draw(GameTime gameTime)
         {
