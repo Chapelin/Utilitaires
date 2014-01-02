@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CommunXnaFree.Spacialisation;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
@@ -49,9 +50,9 @@ namespace GestionObjetClick
 
         #region accesseurs
 
-        public Texture2D SpriteToDraw { get; set; }
+        public virtual Texture2D SpriteToDraw { get; set; }
 
-        public Vector2 Position { get; set; }
+        public Coordonnees Position { get; set; }
 
         public Color Couleur
         {
@@ -91,18 +92,18 @@ namespace GestionObjetClick
         /// <summary>
         /// Constructeur d'objet
         /// </summary>
+        /// <param name="g"></param>
         /// <param name="text">Nom de l'objet</param>
-        /// <param name="pos">Position de son sprite</param>
         /// <param name="z">Position Z, plus Z est faible, plus il sera devant</param>
         /// <param name="gd">GRaphiqueDevice</param>
+        /// <param name="id"></param>
         /// <param name="c">Colorkey</param>
-        public MouseAwareObject(Game g,Texture2D text, Vector2 pos, float z, GraphicsDevice gd, string id = "NoID", Color c = default(Color)) : base(g)
+        /// <param name="pos">Position de son sprite</param>
+        public MouseAwareObject(Game g,  float z, GraphicsDevice gd, string id = "NoID", Coordonnees pos = default(Coordonnees)) : base(g)
         {
             this.gd = gd;
-            SpriteToDraw = text;
             Position = pos;
             Z = z;
-            Couleur = c;
             this.Id = id;
 
         }
@@ -140,12 +141,12 @@ namespace GestionObjetClick
 
         public override void Draw(GameTime gameTime)
         {
-            var sp = new SpriteBatch(Game.GraphicsDevice);
-            sp.Begin();
-            sp.Draw(this.SpriteToDraw, new Rectangle((int)this.Position.X, (int)this.Position.Y, this.SpriteToDraw.Width, this.SpriteToDraw.Height), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, this.Z);
-            sp.End();
+            //var sp = new SpriteBatch(Game.GraphicsDevice);
+            //sp.Begin();
+            //sp.Draw(this.SpriteToDraw, new Rectangle((int)this.Position.X, (int)this.Position.Y, this.SpriteToDraw.Width, this.SpriteToDraw.Height), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, this.Z);
+            //sp.End();
            
-            base.Draw(gameTime);
+            //base.Draw(gameTime);
         }
 
         #endregion
