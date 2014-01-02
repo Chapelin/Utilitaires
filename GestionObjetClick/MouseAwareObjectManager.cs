@@ -12,7 +12,7 @@ namespace GestionObjetClick
     /// <summary>
     /// Classe de gestion des objets
     /// </summary>
-    public class MouseAwareObjectManager : DrawableGameComponent
+    public class MouseAwareObjectManager
     {
 
         #region Variables de classe
@@ -49,7 +49,7 @@ namespace GestionObjetClick
         /// Constructeur d'OBjetManager
         /// </summary>
         /// <param name="g">Game</param>
-        public MouseAwareObjectManager(Game g) : base(g)
+        public MouseAwareObjectManager(Game g)
         {
             dic = new Dictionary<Color, MouseAwareObject>();
             this.game = g;
@@ -57,7 +57,6 @@ namespace GestionObjetClick
             cachee = null;
 
             actualcolor = 0x000001;
-            g.Components.Add(this);
 
         }
 
@@ -166,6 +165,7 @@ namespace GestionObjetClick
         /// </summary>
         public void DrawHiddenObjets()
         {
+            //return;
             // Set the render target
             List<MouseAwareObject> l = this.ToList();
             var renderTarget = new RenderTarget2D(
@@ -186,14 +186,14 @@ namespace GestionObjetClick
             //cachee = renderTarget.GetTexture<Texture2D>(cachee);
         }
 
-        public override void Draw(GameTime gameTime)
-        {
-            base.Draw(gameTime);
-            var sp = new SpriteBatch(game.GraphicsDevice);
-            sp.Begin();
-            DrawHiddenObjets();
-            sp.End();
-        }
+        //public void Draw(GameTime gameTime)
+        //{
+            
+        //    var sp = new SpriteBatch(game.GraphicsDevice);
+        //    sp.Begin();
+        //    DrawHiddenObjets();
+        //    sp.End();
+        //}
         #endregion
 
 
