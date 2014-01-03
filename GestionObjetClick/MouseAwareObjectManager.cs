@@ -181,7 +181,7 @@ namespace GestionObjetClick
             for (int i = 0; i < l.Count; i++)
             {
                 l[i].ColorerCurrentTexture(100);
-                te.Draw(l[i].Sprite_coloree, new Vector2(l[i].Position.X, l[i].Position.Y), Color.White);
+                te.Draw(l[i].Sprite_coloree, new Vector2(l[i].PositionToDraw.X, l[i].PositionToDraw.Y), Color.White);
             }
             te.End();
             // Drop the render target

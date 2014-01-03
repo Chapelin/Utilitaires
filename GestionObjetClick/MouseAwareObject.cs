@@ -48,7 +48,15 @@ namespace GestionObjetClick
 
         public virtual Texture2D SpriteToDraw { get; set; }
 
-        public Coordonnees Position { get; set; }
+        public virtual Coordonnees PositionToDraw
+        {
+            get
+            {
+                return Position;
+            }
+        
+        }
+        public  Coordonnees Position { get; set; }
 
         public Color Couleur { get; set; }
 
