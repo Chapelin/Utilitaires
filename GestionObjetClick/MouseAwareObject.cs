@@ -32,11 +32,6 @@ namespace GestionObjetClick
         private float z;
 
         /// <summary>
-        /// Couleur de sprite_coloree
-        /// </summary>
-        private Color couleur;
-
-        /// <summary>
         /// Graphique device, sert a colorer.
         /// </summary>
         private GraphicsDevice gd;
@@ -54,13 +49,7 @@ namespace GestionObjetClick
 
         public Coordonnees Position { get; set; }
 
-        public Color Couleur
-        {
-            get { return couleur; }
-            set { 
-                this.Sprite_coloree = Colorer(this.SpriteToDraw,value,ALPHAMIN,this.gd);
-                couleur= value; }
-        }
+        public Color Couleur { get; set; }
 
         public float Z
         {
@@ -138,6 +127,12 @@ namespace GestionObjetClick
             return temp;
 
         }
+
+        public void ColorerCurrentTexture( int alphamin)
+    {
+        this.Sprite_coloree = Colorer(this.SpriteToDraw, Couleur, alphamin, gd);
+    }
+
 
         public override void Draw(GameTime gameTime)
         {

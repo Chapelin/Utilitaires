@@ -177,8 +177,12 @@ namespace GestionObjetClick
             game.GraphicsDevice.SetRenderTarget(renderTarget);
             SpriteBatch te = new SpriteBatch(game.GraphicsDevice);
             te.Begin();
+
             for (int i = 0; i < l.Count; i++)
-                te.Draw(l[i].Sprite_coloree, new Vector2(l[i].Position.X,l[i].Position.Y), Color.White);
+            {
+                
+                te.Draw(l[i].Sprite_coloree, new Vector2(l[i].Position.X, l[i].Position.Y), Color.White);
+            }
             te.End();
             // Drop the render target
             game.GraphicsDevice.SetRenderTarget(null);
