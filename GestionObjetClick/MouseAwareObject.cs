@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using CommunXnaFree.Spacialisation;
@@ -142,6 +143,13 @@ namespace GestionObjetClick
             //sp.End();
            
             //base.Draw(gameTime);
+
+        }
+
+        public void SaveColoreeAsPng(string path)
+        {
+            using (var temp = File.Open(path, FileMode.Create))
+                this.Sprite_coloree.SaveAsPng(temp, Sprite_coloree.Width, Sprite_coloree.Height);
         }
 
         #endregion

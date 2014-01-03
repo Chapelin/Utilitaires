@@ -56,7 +56,7 @@ namespace GestionObjetClick
            
             cachee = null;
 
-            actualcolor = 0x000001;
+            actualcolor = 0xA00001;
 
         }
 
@@ -180,13 +180,14 @@ namespace GestionObjetClick
 
             for (int i = 0; i < l.Count; i++)
             {
-                
+                l[i].ColorerCurrentTexture(100);
                 te.Draw(l[i].Sprite_coloree, new Vector2(l[i].Position.X, l[i].Position.Y), Color.White);
             }
             te.End();
             // Drop the render target
-            game.GraphicsDevice.SetRenderTarget(null);
+            
             cachee = renderTarget;
+            game.GraphicsDevice.SetRenderTarget(null);
             //cachee = renderTarget.GetTexture<Texture2D>(cachee);
         }
 
@@ -258,8 +259,8 @@ namespace GestionObjetClick
         /// <param name="path">Chemine et non du ficher</param>
         public void TakeScreenOfHidden(String path)
         {
-            Stream temp = File.Open(path,FileMode.Create);
-            cachee.SaveAsPng(temp,cachee.Height,cachee.Width);
+            using(var temp = File.Open(path,FileMode.Create))
+                cachee.SaveAsPng(temp, cachee.Width, cachee.Height);
         }
 
         #endregion
